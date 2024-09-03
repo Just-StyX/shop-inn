@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
-@EnableJpaAuditing()
 @SpringBootApplication
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class ShopInnApplication {
 
 	public static void main(String[] args) {
