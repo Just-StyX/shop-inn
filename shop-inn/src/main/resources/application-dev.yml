@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop-inn-db
+    password: password
+    username: username
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: postgresql
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        boot:
+          allow_jdbc_metadata_access: false
+
+  mail:
+    host: localhost
+    port: 1025
+    username: jay
+    password: jay
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+application:
+  file:
+    upload-url: ./item-images
+  cors:
+    origins: http://localhost:4200,http://localhost:8080
+  security:
+    jwt-secret-key: 6b1f2f5a661d9579c80a12a03cfb7d287fc2343d9a5824aa5822246594b1f585
+    expiration: 86400000
+    code-length: 6
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+server:
+  port: 8088
+

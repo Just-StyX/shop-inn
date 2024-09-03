@@ -1,0 +1,30 @@
+services:
+  shop-inn-postgres:
+    container_name: shop-inn-postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: shop-inn-db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgres/data
+    networks:
+      - shop-inn-network
+
+  mail-dev:
+    container_name: mail-dev-blog
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+
+networks:
+  shop-inn-network:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
