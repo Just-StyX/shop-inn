@@ -42,7 +42,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 
     @Override
     public void register(RegistrationRequest registrationRequest) throws MessagingException {
-        Role customerRole = roleRepository.findByName("USER").orElseThrow(() -> new CustomerNotFoundException("User not found"));
+        Role customerRole = roleRepository.findByName("USER").orElseThrow(() -> new CustomerNotFoundException("User role not found"));
         Customer customer = Customer.builder()
                 .firstname(registrationRequest.firstname())
                 .lastname(registrationRequest.lastname())
