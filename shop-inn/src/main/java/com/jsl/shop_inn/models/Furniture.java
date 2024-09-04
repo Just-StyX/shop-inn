@@ -46,4 +46,10 @@ public class Furniture extends BaseEntity {
     public void setInStock() {
         this.inStock = this.stock.getInStock();
     }
+
+    public Furniture addImage(FurnitureImageNames furnitureImageNames) {
+        this.furnitureImageNames.add(furnitureImageNames);
+        furnitureImageNames.setFurniture(this);
+        return this;
+    }
 }

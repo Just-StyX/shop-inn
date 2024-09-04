@@ -8,7 +8,7 @@ type ItemResponse {
     name: String
     price: Float
     descriptionResponse: DescriptionResponse
-    files: [String]
+    files: [[String]]
 }
 
 type DescriptionResponse {
