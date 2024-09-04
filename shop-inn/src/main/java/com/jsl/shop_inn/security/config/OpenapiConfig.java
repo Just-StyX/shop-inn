@@ -17,8 +17,8 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "jsl@email.com",
                         url = "https://jsl.com/shop-inn"
                 ),
-                description = "Blog documentation for Spring security",
-                title = "Blog specification - Jsl",
+                description = "Shop-Inn documentation for Spring security",
+                title = "Shop-Inn specification - Jsl",
                 version = "1.0",
                 license = @License(
                         name = "License name",
@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "Local ENV",
-                        url = "http://localhost:8088/api/v1"
+                        url = "http://localhost:8088/shop-inn/v1"
                 ),
                 @Server(
                         description = "Blob ENV",

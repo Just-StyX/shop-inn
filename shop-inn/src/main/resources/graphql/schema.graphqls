@@ -1,7 +1,30 @@
-type Pet {
+type ItemResponse {
+    id: String
     name: String
+    price: Float
+    descriptionResponse: DescriptionResponse
+    files: [[String]]
 }
 
+type DescriptionResponse {
+    color: String
+    dimension: String
+    category: String
+    additional: String
+}
+
+type PageResponse {
+    content: [ItemResponse]
+    number: Int
+    size: Int
+    totalElements: Int
+    totalPages: Int
+    first: Boolean
+    last: Boolean
+}
+
+
 type Query {
-    pet: [Pet]
+    queryByName(name: String, page: Int = 0, size: Int = 10): PageResponse
+    queryByNameAndPrice(name: String, price: Float, page: Int = 0, size: Int = 10): PageResponse
 }

@@ -3,14 +3,18 @@ spring:
     name: shop-inn
   profiles:
     active: dev
+  graphql:
+    graphiql:
+      enabled: true
+    path: /shop-inn-query
   servlet:
     multipart:
       max-file-size: 50MB
 
 
-server:
-  servlet:
-    context-path: /shop-inn/v1/
+#server:
+#  servlet:
+#    context-path: /shop-inn/v1/
 
 springdoc:
   default-produces-media-type: application/json
