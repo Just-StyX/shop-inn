@@ -27,6 +27,13 @@ public class Stock extends BaseEntity {
     @Min(value = 0, message = "quantity cannot be less than zero")
     private int quantity;
 
+    public boolean getInStock() {
+        return this.getQuantity() > 0;
+    }
+
+    @OneToOne(mappedBy = "stock")
+    private Furniture furniture;
+
     public void setInStock() {
         this.inStock = this.getQuantity() > 0;
     }

@@ -1,9 +1,14 @@
+type Query {
+    queryByName(name: String, page: Int = 0, size: Int = 10): PageResponse
+    queryByNameAndPrice(name: String, price: Float, page: Int = 0, size: Int = 10): PageResponse
+}
+
 type ItemResponse {
     id: String
     name: String
     price: Float
     descriptionResponse: DescriptionResponse
-    files: [[String]]
+    files: [String]
 }
 
 type DescriptionResponse {
@@ -23,8 +28,3 @@ type PageResponse {
     last: Boolean
 }
 
-
-type Query {
-    queryByName(name: String, page: Int = 0, size: Int = 10): PageResponse
-    queryByNameAndPrice(name: String, price: Float, page: Int = 0, size: Int = 10): PageResponse
-}

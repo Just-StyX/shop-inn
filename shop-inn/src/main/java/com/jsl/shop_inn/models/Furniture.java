@@ -4,10 +4,7 @@ import com.jsl.shop_inn.common.base.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -42,8 +39,9 @@ public class Furniture extends BaseEntity {
     private List<FurnitureImageNames> furnitureImageNames = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "stock")
     private Stock stock;
+
 
     public void setInStock() {
         this.inStock = this.stock.getInStock();
