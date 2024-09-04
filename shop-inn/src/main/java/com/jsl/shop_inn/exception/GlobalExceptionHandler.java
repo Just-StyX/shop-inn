@@ -100,4 +100,40 @@ public class GlobalExceptionHandler {
                                 .build()
                 );
     }
+
+    @ExceptionHandler(TargetFolderException.class)
+    public ResponseEntity<ExceptionResponse> handleException(TargetFolderException targetFolderException) {
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(targetFolderException.getMessage())
+                                .businessErrorCode(ErrorCodes.TARGET_FOLDER_NOT_CREATE.getCode())
+                                .businessErrorDescription(ErrorCodes.TARGET_FOLDER_NOT_CREATE.getDescription())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(FileNotSavedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(FileNotSavedException fileNotSaveException) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(fileNotSaveException.getMessage())
+                                .businessErrorCode(ErrorCodes.FILE_NOT_SAVE.getCode())
+                                .businessErrorDescription(ErrorCodes.FILE_NOT_SAVE.getDescription())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(NoFileFoundInPath.class)
+    public ResponseEntity<ExceptionResponse> handleException(NoFileFoundInPath noFileFoundInPath) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(noFileFoundInPath.getMessage())
+                                .businessErrorCode(ErrorCodes.NO_FILE_FOUND.getCode())
+                                .businessErrorDescription(ErrorCodes.NO_FILE_FOUND.getDescription())
+                                .build()
+                );
+    }
 }
