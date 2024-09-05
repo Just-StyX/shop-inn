@@ -27,5 +27,5 @@
 - **Return Items:** User are able to return new purchased items.
 
 <a id="class-diagram"></a>
-### Class Diagram
+#### Class Diagram
 ![Class Diagram](./shop-inn-db.png)
