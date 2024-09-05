@@ -4,6 +4,8 @@
 - [Overview](#overview)
 - [Features](#features)
 - [Class Diagram](#class-diagram)
+- [Technologies](#technologies)
+- [Acknowledgement](#acknowledgement)
 ***
 <a id="overview"></a>
 ### Overview
@@ -29,3 +31,29 @@
 <a id="class-diagram"></a>
 #### Class Diagram
 ![Class Diagram](./shop-inn-db.png)
+***
+
+<a id="technologies"></a>
+### Technologies
+
+- GraphQL
+- Kafka
+- Docker
+- Thymeleaf
+- Postgres
+- Spring Boot 3
+- Spring Security 6
+- Spring Data JPA
+- Spring Validation
+- Spring WebMVC
+- Spring Reactive Web
+- Java Mail Sender
+- JWT Token Authentication
+- OpenAPI and Swagger UI Documentation
+***
+
+<a id="acknowledgement"></a>
+### Acknowledgement
+
+A special thank you to the developers and maintainers of the technologies used in this project. Their hard 
+work and dedication made it possible.
