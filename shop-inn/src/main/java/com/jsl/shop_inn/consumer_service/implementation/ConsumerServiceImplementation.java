@@ -1,12 +1,11 @@
 package com.jsl.shop_inn.consumer_service.implementation;
 
-import com.jsl.shop_inn.common.util.FurnitureCategory;
-import com.jsl.shop_inn.common.util.ItemRequest;
-import com.jsl.shop_inn.common.util.ItemResponse;
+import com.jsl.shop_inn.common.util.*;
 import com.jsl.shop_inn.consumer_service.services.ConsumerService;
 import com.jsl.shop_inn.exception.CustomerNotFoundException;
 import com.jsl.shop_inn.file.FileStorageService;
 import com.jsl.shop_inn.models.*;
+import com.jsl.shop_inn.repository.CustomerRepository;
 import com.jsl.shop_inn.repository.FurnitureRepository;
 import com.jsl.shop_inn.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +23,8 @@ public class ConsumerServiceImplementation implements ConsumerService {
     private final StockRepository stockRepository;
     private final FurnitureRepository furnitureRepository;
     private final FileStorageService fileStorageService;
+    private final CustomerRepository customerRepository;
+
 
     @Override
     public ItemResponse addItem(ItemRequest itemRequest, Authentication authentication) {
@@ -60,5 +61,27 @@ public class ConsumerServiceImplementation implements ConsumerService {
         }
 
         return toItemResponse(furnitureRepository.findById(furnitureId).orElseThrow(() -> new CustomerNotFoundException("Item does not exists")));
+    }
+
+    @Override
+    public PurchaseMessage processing(PurchaseRequest purchaseRequest, Authentication authentication) {
+        List<Furniture> furniture = furnitureRepository.findAllById(purchaseRequest.furnitureIds());
+        Address billing = new Address(purchaseRequest.state(), purchaseRequest.city(), purchaseRequest.street(), purchaseRequest.zipcode());
+        Address shipping = new Address(purchaseRequest.shipping_state(), purchaseRequest.shipping_city(), purchaseRequest.shipping_street(), purchaseRequest.shipping_zipcode());
+        Customer customer = (Customer) authentication.getPrincipal();
+        customer.setBillingAddress(billing);
+        customer.setShipping(shipping);
+        Cart cart = Cart.builder()
+                .furniture(furniture)
+                .build();
+        cart.setAmountSpent(cart.amountSpent());
+        Customer savedCustomer = customerRepository.save(customer.addCart(cart));
+        return PurchaseMessage.builder()
+                            .username(customer.getEmail())
+                            .fullName(customer.getFullName())
+                            .message("The following items will be shipped to the shipping address provided")
+                            .furniture(furniture)
+                            .totalSpent(cart.amountSpent())
+                            .build();
     }
 }

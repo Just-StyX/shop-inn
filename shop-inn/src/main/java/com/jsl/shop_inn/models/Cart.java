@@ -1,5 +1,6 @@
 package com.jsl.shop_inn.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jsl.shop_inn.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,10 +31,15 @@ public class Cart extends BaseEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<Furniture> furniture = new ArrayList<>();
 
     public void setAmountSpent() {
         this.amountSpent = this.furniture.stream().map(Furniture::getPrice).reduce(BigDecimal.valueOf(0), BigDecimal::add);
+    }
+
+    public BigDecimal amountSpent() {
+        return this.furniture.stream().map(Furniture::getPrice).reduce(BigDecimal.valueOf(0), BigDecimal::add);
     }
 }

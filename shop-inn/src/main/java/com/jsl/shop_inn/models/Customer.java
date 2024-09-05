@@ -1,14 +1,12 @@
 package com.jsl.shop_inn.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jsl.shop_inn.common.base.BaseEntity;
 import com.jsl.shop_inn.common.base.Role;
 import com.jsl.shop_inn.common.base.Token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,6 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customer")
+@ToString
 public class Customer extends BaseEntity implements UserDetails, Principal {
     @NotNull
     @Column(nullable = false)
@@ -52,14 +51,24 @@ public class Customer extends BaseEntity implements UserDetails, Principal {
     @AttributeOverride(name = "zipcode", column = @Column(name = "shipping_zipcode"))
     private Address shipping;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Cart> carts = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    @ToString.Exclude
     private List<Token> tokens;
+
+    public Customer addCart(Cart cart) {
+        this.carts.add(cart);
+        cart.setCustomer(this);
+        return this;
+    }
 
     @Override
     public String getName() {

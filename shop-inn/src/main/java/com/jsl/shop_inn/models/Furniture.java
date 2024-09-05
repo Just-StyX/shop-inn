@@ -1,5 +1,6 @@
 package com.jsl.shop_inn.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jsl.shop_inn.common.base.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "furniture")
+@ToString
 public class Furniture extends BaseEntity {
     @NotNull
     @Column(nullable = false)
@@ -36,10 +38,14 @@ public class Furniture extends BaseEntity {
     private Cart cart;
 
     @OneToMany(mappedBy = "furniture", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
     private List<FurnitureImageNames> furnitureImageNames = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "stock")
+    @ToString.Exclude
+    @JsonIgnore
     private Stock stock;
 
 

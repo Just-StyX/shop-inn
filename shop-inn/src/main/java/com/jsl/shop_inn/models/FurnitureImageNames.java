@@ -1,5 +1,6 @@
 package com.jsl.shop_inn.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jsl.shop_inn.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,5 +21,6 @@ public class FurnitureImageNames extends BaseEntity {
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "furniture_id")
+    @JsonIgnore
     private Furniture furniture;
 }

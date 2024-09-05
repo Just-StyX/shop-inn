@@ -32,6 +32,21 @@ spring:
         timeout: 3000
         writetimeout: 5000
 
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: process-order
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+
 application:
   file:
     upload-url: ./item-images
@@ -44,6 +59,8 @@ application:
   mailing:
     frontend:
       activation-url: http://localhost:4200/activate-account
+  purchase:
+    topic: processing
 
 server:
   port: 8088

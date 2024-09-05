@@ -10,9 +10,13 @@
         <module name="shop-inn" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kafka-consumer" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="kafka-consumer" options="-parameters" />
       <module name="shop-inn" options="-parameters" />
     </option>
   </component>
